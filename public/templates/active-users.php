@@ -1,6 +1,6 @@
 <ul class="active-player-list">
   <?php foreach($users as $user): ?>
-    <li <?php print $attributes ?>>
+    <li <?php print $user['attributes'] ?>>
       <a href="/members/<?php print $user['slug'] ?>/profile">
         <figure>
           <img src="<?php print $user['avatar'] ?>">
