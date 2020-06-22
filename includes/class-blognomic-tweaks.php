@@ -155,7 +155,7 @@ class Blognomic_Tweaks {
 		$plugin_admin = new Blognomic_Tweaks_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts', 1000 );
 
 	}
 
@@ -172,6 +172,10 @@ class Blognomic_Tweaks {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'elementor/dynamic_tags/register_tags', $plugin_public, 'dynamic_tags' );
+		$this->loader->add_action( 'widgets_init', $plugin_public, 'current_active_players_widget');
+
+		$this->loader->add_shortcode( 'blognomic-clock', $plugin_public, 'shortcode_clock' );
 
 	}
 

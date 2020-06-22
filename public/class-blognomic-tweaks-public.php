@@ -100,4 +100,20 @@ class Blognomic_Tweaks_Public {
 
 	}
 
+	public function dynamic_tags($dynamic_tags) {
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-post-classes-dynamic-tag.php';
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-title-with-category-dynamic-tag.php';
+		$dynamic_tags->register_tag('BlogNomic_Post_Classes_Tag');
+		$dynamic_tags->register_tag('BlogNomic_Title_With_Category_Tag');
+	}
+
+	public function shortcode_clock() {
+		return sprintf('<span class="blognomic-clock">%s UTC</span>', gmdate('l, F j, Y · H:i:s'));
+	}
+
+	public function current_active_players_widget() {
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-current-active-players-widget.php';
+		register_widget('BlogNomic_Tweaks_Current_Active_Players_Widget');
+	}
+
 }
