@@ -62,7 +62,7 @@ class BlogNomic_Tweaks_Current_Active_Players_Widget extends WP_Widget {
       $users[] = [
         'name' => $user->user_login,
         'slug' => $user->user_nicename,
-        'avatar' => get_avatar_url($user->id, [
+        'avatar' => get_avatar_url($user->ID, [
           'size' => 100,
           'default' => 'identicon',
           'rating' => 'PG',
