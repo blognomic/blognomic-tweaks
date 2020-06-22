@@ -34,7 +34,7 @@ jQuery(($) => {
 				return;
 			}
 
-			$el.attr('href', href.replace(regex, '$`/members/$2/profile'));
+			$el.attr('href', href.replace(regex, '/members/$2/profile'));
 		})
 	})();
 
