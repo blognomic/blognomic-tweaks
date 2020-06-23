@@ -28,13 +28,13 @@ jQuery(($) => {
 		$('a[href]').each((i, el) => {
 			const $el = $(el);
 			var href = $el.attr('href');
-			const regex = /\/(author|members)\/(.*?)\/$/
+			const regex = /\/author\/(.*?)\/$/
 
 			if (!href.match(regex)) {
 				return;
 			}
 
-			$el.attr('href', href.replace(regex, '/members/$2/profile'));
+			$el.attr('href', href.replace(regex, '/members/$1/profile'));
 		})
 	})();
 
