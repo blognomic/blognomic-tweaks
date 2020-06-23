@@ -42,7 +42,7 @@ Class BlogNomic_Post_Classes_Tag extends \Elementor\Core\DynamicTags\Tag {
     $post_freshness = 'fresh';
 
     // If post is over 48 hours old...
-    if($now - $published > (60 * 48)) {
+    if($now - $published > (60 * 60 * 48)) {
       $post_freshness = 'stale';
     }
 
