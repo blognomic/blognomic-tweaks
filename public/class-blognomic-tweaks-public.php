@@ -116,4 +116,9 @@ class Blognomic_Tweaks_Public {
 		register_widget('BlogNomic_Tweaks_Current_Active_Players_Widget');
 	}
 
+	public function post_info_including_closed_comments_elementor_widget() {
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-post-info-including-closed-comments-elementor-widget.php';
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new ElementorPro\Modules\ThemeElements\Widgets\Post_Info_Including_Closed_Comments() );
+	}
+
 }
