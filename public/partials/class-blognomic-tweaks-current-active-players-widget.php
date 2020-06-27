@@ -23,6 +23,8 @@ class BlogNomic_Tweaks_Current_Active_Players_Widget extends WP_Widget {
         ],
       ],
       'fields' => 'all',
+      'role__in' => ['author', 'editor', 'administrator'],
+
     ]);
 
     $base_users = $user_query->get_results();
