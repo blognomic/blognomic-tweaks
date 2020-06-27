@@ -103,8 +103,10 @@ class Blognomic_Tweaks_Public {
 	public function dynamic_tags($dynamic_tags) {
 		include_once __DIR__ . '/partials/class-blognomic-tweaks-post-classes-dynamic-tag.php';
 		include_once __DIR__ . '/partials/class-blognomic-tweaks-title-with-category-dynamic-tag.php';
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-title-with-tags-only-dynamic-tag.php';
 		$dynamic_tags->register_tag('BlogNomic_Post_Classes_Tag');
 		$dynamic_tags->register_tag('BlogNomic_Title_With_Category_Tag');
+		$dynamic_tags->register_tag('BlogNomic_Title_With_Tags_Only_Tag');
 	}
 
 	public function shortcode_clock() {
@@ -114,6 +116,11 @@ class Blognomic_Tweaks_Public {
 	public function current_active_players_widget() {
 		include_once __DIR__ . '/partials/class-blognomic-tweaks-current-active-players-widget.php';
 		register_widget('BlogNomic_Tweaks_Current_Active_Players_Widget');
+	}
+
+	public function post_info_including_closed_comments_elementor_widget() {
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-post-info-including-closed-comments-elementor-widget.php';
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new ElementorPro\Modules\ThemeElements\Widgets\Post_Info_Including_Closed_Comments() );
 	}
 
 }

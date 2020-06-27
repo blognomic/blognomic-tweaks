@@ -1,12 +1,12 @@
 <?php
 
-Class BlogNomic_Title_With_Category_Tag extends \Elementor\Core\DynamicTags\Tag {
+Class BlogNomic_Title_With_Tags_Only_Tag extends \Elementor\Core\DynamicTags\Tag {
 	public function get_name() {
-    return 'blognomic-title-with-category';
+    return 'blognomic-title-with-tags-only';
   }
 
 	public function get_title() {
-    return __('BlogNomic title with category and tags', 'blognomic-tweaks');
+    return __('BlogNomic title with tags only', 'blognomic-tweaks');
   }
 
 	public function get_group() {
@@ -19,17 +19,6 @@ Class BlogNomic_Title_With_Category_Tag extends \Elementor\Core\DynamicTags\Tag 
 
 	public function render() {
     $post = get_post();
-
-    $categories = get_the_terms($post, 'category');
-
-    $title_category = '';
-
-    foreach($categories as $category) {
-      if($category->slug !== 'uncategorized') {
-        $title_category = $category->name . ': ';
-        break;
-      }
-    }
 
     $tags = get_the_terms($post, 'tag');
 
@@ -46,6 +35,6 @@ Class BlogNomic_Title_With_Category_Tag extends \Elementor\Core\DynamicTags\Tag 
       $title_tags = $title_tags . "]"
     }
 
-    print $title_category . $post->post_title . $title_tags;
+    print $post->post_title . $title_tags;
   }
 }
