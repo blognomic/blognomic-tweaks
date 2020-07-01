@@ -31,19 +31,19 @@ Class BlogNomic_Title_With_Category_Tag extends \Elementor\Core\DynamicTags\Tag 
       }
     }
 
-    $tags = get_the_terms($post, 'tag');
+    $tags = get_the_terms($post, 'post_tag');
 
     $title_tags = '';
 
-    $if ( $tags ) {
-      $title_tags = ' [';
-      foreach($tags as $tag) {
-        if ( $title_tags !== ' [' ) {
-            $title_tags = $title_tags . ', ';
-        }
-        $title_tags = $title_tags . $tag->name;
-      }
-      $title_tags = $title_tags . "]"
+    if(!empty($tags)) {
+      $tags = array_map(
+        function($tag) {
+          return $tag->name;
+        },
+        $tags
+      );
+
+      $title_tags = ' [' . implode(', ', $tags). ']';
     }
 
     print $title_category . $post->post_title . $title_tags;

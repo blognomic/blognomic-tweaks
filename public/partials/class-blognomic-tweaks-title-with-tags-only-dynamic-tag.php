@@ -20,19 +20,19 @@ Class BlogNomic_Title_With_Tags_Only_Tag extends \Elementor\Core\DynamicTags\Tag
 	public function render() {
     $post = get_post();
 
-    $tags = get_the_terms($post, 'tag');
+    $tags = get_the_terms($post, 'post_tag');
 
     $title_tags = '';
 
-    $if ( $tags ) {
-      $title_tags = ' [';
-      foreach($tags as $tag) {
-        if ( $title_tags !== ' [' ) {
-            $title_tags = $title_tags . ', ';
-        }
-        $title_tags = $title_tags . $tag->name;
-      }
-      $title_tags = $title_tags . "]"
+    if(!empty($tags)) {
+      $tags = array_map(
+        function($tag) {
+          return $tag->name;
+        },
+        $tags
+      );
+
+      $title_tags = ' [' . implode(', ', $tags). ']';
     }
 
     print $post->post_title . $title_tags;
