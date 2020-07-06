@@ -103,9 +103,11 @@ class Blognomic_Tweaks_Public {
 	public function dynamic_tags($dynamic_tags) {
 		include_once __DIR__ . '/partials/class-blognomic-tweaks-post-classes-dynamic-tag.php';
 		include_once __DIR__ . '/partials/class-blognomic-tweaks-title-with-category-dynamic-tag.php';
+		include_once __DIR__ . '/partials/class-blognomic-tweaks-title-with-category-and-tags-dynamic-tag.php';
 		include_once __DIR__ . '/partials/class-blognomic-tweaks-title-with-tags-only-dynamic-tag.php';
 		$dynamic_tags->register_tag('BlogNomic_Post_Classes_Tag');
 		$dynamic_tags->register_tag('BlogNomic_Title_With_Category_Tag');
+		$dynamic_tags->register_tag('BlogNomic_Title_With_Category_And_Tags_Tag');
 		$dynamic_tags->register_tag('BlogNomic_Title_With_Tags_Only_Tag');
 	}
 

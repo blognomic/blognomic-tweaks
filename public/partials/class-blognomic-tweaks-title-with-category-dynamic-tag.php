@@ -6,7 +6,7 @@ Class BlogNomic_Title_With_Category_Tag extends \Elementor\Core\DynamicTags\Tag 
   }
 
 	public function get_title() {
-    return __('BlogNomic title with category and tags', 'blognomic-tweaks');
+    return __('BlogNomic title with category', 'blognomic-tweaks');
   }
 
 	public function get_group() {
@@ -31,21 +31,6 @@ Class BlogNomic_Title_With_Category_Tag extends \Elementor\Core\DynamicTags\Tag 
       }
     }
 
-    $tags = get_the_terms($post, 'post_tag');
-
-    $title_tags = '';
-
-    if(!empty($tags)) {
-      $tags = array_map(
-        function($tag) {
-          return $tag->name;
-        },
-        $tags
-      );
-
-      $title_tags = ' [' . implode(', ', $tags). ']';
-    }
-
-    print $title_category . $post->post_title . $title_tags;
+    print $title_category . $post->post_title;
   }
 }
