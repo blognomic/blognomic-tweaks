@@ -32,7 +32,7 @@ Class BlogNomic_Title_With_Tags_Only_Tag extends \Elementor\Core\DynamicTags\Tag
         $tags
       );
 
-      $title_tags = ' [' . implode(', ', $tags). ']';
+      $title_tags = ' <span style="opacity:0.5">[' . implode(', ', $tags). ']</span>';
     }
 
     print $post->post_title . $title_tags;
