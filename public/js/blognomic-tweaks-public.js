@@ -50,7 +50,120 @@ jQuery(($) => {
 			let $el = $(el);
 			$el.find('.wpml_commentbox').insertAfter($el.find('.comment-form-comment label'));
 		});
+
+		$('.acf-comment-fields').insertBefore('.comment-form-comment');
 	})();
 
+	// Automatic vote counting. First, identify and style EVCs.
+	(function () {
+		var $candidateEVCs = $('#comments .comment');
+		const $mainPostWrapper = $('.elementor-location-single');
+		const votableCategories = ['proposal', 'votable-matter', 'cfj', 'dov'];
+		var postIsVotable = false;
 
+		for (let i = 0; i < votableCategories.length; i++) {
+			if ($mainPostWrapper.find('article.' + votableCategories[i])) {
+				postIsVotable = true;
+			}
+		}
+
+		if (!$candidateEVCs.length || !postIsVotable) {
+			return;
+		}
+
+		$candidateEVCs = $candidateEVCs.filter(function (i, el) {
+			const $el = $(el);
+			const authorActive = $el.data('authorStatus') === 'active';
+			const authorIsPlayer = $el.data('isPlayer');
+			const playerVoted = $el.data('vote');
+
+			return authorActive && authorIsPlayer && playerVoted;
+		});
+
+		console.log($candidateEVCs);
+
+		const commentsByUser = {};
+
+		$candidateEVCs.each(function (i, el) {
+			const $el = $(el);
+			const key = 'user' + $el.data('authorId');
+			if (!commentsByUser[key]) {
+				commentsByUser[key] = [];
+			}
+
+			commentsByUser[key].push($el);
+		});
+
+		for (const user in commentsByUser) {
+			commentsByUser[user].sort(function ($a, $b) {
+				// Later comments first.
+				return $b.data('commentTime') - $a.data('commentTime');
+			});
+
+			// First comment is the EVC.
+			commentsByUser[user][0].removeClass('not-evc').addClass('evc');
+		}
+	})();
+
+	// Then, count the EVCs.
+	(function () {
+		const $evcs = $('#comments .comment.evc');
+
+		if (!$evcs.length) {
+			return;
+		}
+
+		const constructToteboardSection = function (vote, votes, collapseEmpty) {
+			if (!votes[vote]) {
+				votes[vote] = [];
+			}
+
+			if (collapseEmpty && !votes[vote].length) {
+				return;
+			}
+
+			const numVotes = votes[vote].length;
+
+			var $voters = $();
+
+			if (numVotes) {
+				votes[vote].sort();
+
+				$voters = $('<ul class="voters"></ul>');
+
+				for (let i = 0; i < numVotes; i++) {
+					$voters.append(`<li>${votes[vote][i]}</li>`);
+				}
+			}
+
+			const $section = $(`<li class="${vote}"></li>`);
+			const capitalizedVote = vote.slice(0, 1).toUpperCase() + vote.slice(1);
+
+			$section.append(`<h3>${capitalizedVote}: ${numVotes}</h3>`);
+			$section.append($voters);
+
+			return $section;
+		};
+
+		const votes = {};
+
+		$evcs.each(function (i, el) {
+			const $el = $(el);
+			const vote = $el.data('vote');
+			if (!votes[vote]) {
+				votes[vote] = [];
+			}
+
+			votes[vote].push($el.data('authorName'));
+		});
+
+		const $toteboard = $('<div class="toteboard"></div>');
+
+		$toteboard.append(constructToteboardSection('for', votes, false));
+		$toteboard.append(constructToteboardSection('deferential', votes, true));
+		$toteboard.append(constructToteboardSection('against', votes, false));
+		$toteboard.append(constructToteboardSection('veto', votes, true));
+
+		$toteboard.insertAfter($('.title-comments'));
+	})();
 });
