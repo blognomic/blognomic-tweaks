@@ -80,8 +80,6 @@ jQuery(($) => {
 			return authorActive && authorIsPlayer && playerVoted;
 		});
 
-		console.log($candidateEVCs);
-
 		const commentsByUser = {};
 
 		$candidateEVCs.each(function (i, el) {
@@ -127,7 +125,9 @@ jQuery(($) => {
 			var $voters = $();
 
 			if (numVotes) {
-				votes[vote].sort();
+				votes[vote].sort((a, b) => {
+					return a.toLowerCase().localeCompare(b.toLowerCase());
+				});
 
 				$voters = $('<ul class="voters"></ul>');
 
