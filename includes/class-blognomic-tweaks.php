@@ -156,7 +156,7 @@ class Blognomic_Tweaks {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts', 1000 );
-
+		$this->loader->add_action( 'customize_register', $plugin_admin, 'expose_site_tagline', 10000);
 	}
 
 	/**

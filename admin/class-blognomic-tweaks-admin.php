@@ -100,4 +100,14 @@ class Blognomic_Tweaks_Admin {
 
 	}
 
+	public function expose_site_tagline($wp_customize) {
+		$setting = $wp_customize->get_setting('blogdescription');
+
+		if(!empty($setting)) {
+			$setting->capability = 'edit_others_posts';
+		}
+
+		return $wp_customize;
+	}
+
 }
