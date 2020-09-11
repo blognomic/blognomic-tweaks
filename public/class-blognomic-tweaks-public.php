@@ -123,4 +123,17 @@ class Blognomic_Tweaks_Public {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new ElementorPro\Modules\ThemeElements\Widgets\Post_Info_Including_Closed_Comments() );
 	}
 
+	public function restrict_comment_editing($caps, $cap, $user_id, $args) {
+		if('edit_comment' === $cap) {
+			$user = get_user_by('id', $user_id);
+
+			if( !in_array('adminstrator', $user->roles) ) {
+				$caps[] = 'moderate_comments';
+			}
+		}
+
+		return $caps;
+	}
+
+
 }

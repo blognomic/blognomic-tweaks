@@ -175,7 +175,7 @@ class Blognomic_Tweaks {
 		$this->loader->add_action( 'elementor/dynamic_tags/register_tags', $plugin_public, 'dynamic_tags' );
 		$this->loader->add_action( 'elementor/widgets/widgets_registered', $plugin_public, 'post_info_including_closed_comments_elementor_widget' );
 		$this->loader->add_action( 'widgets_init', $plugin_public, 'current_active_players_widget');
-
+		$this->loader->add_filter( 'map_meta_cap', $plugin_public, 'restrict_comment_editing', 10, 4);
 		$this->loader->add_shortcode( 'blognomic-clock', $plugin_public, 'shortcode_clock' );
 
 	}
